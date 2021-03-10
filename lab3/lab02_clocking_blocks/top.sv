@@ -1,5 +1,10 @@
 /***********************************************************************
  * A SystemVerilog top-level netlist to connect testbench to DUT
+ *
+ * SystemVerilog Training Workshop.
+ * Copyright 2006, 2013 by Sutherland HDL, Inc.
+ * Tualatin, Oregon, USA.  All rights reserved.
+ * www.sutherland-hdl.com
  **********************************************************************/
 
 module top;
@@ -12,34 +17,23 @@ module top;
   logic clk;
   logic test_clk;
 
-  tb_ifc itfc(
-    .clk(clk)
-  );
+ // instantiate the testbench interface
+  tb_ifc io (.clk(test_clk));
 
-  // instantiate testbench and connect ports
-  instr_register_test test (
-    .clk(test_clk),
-    .load_en(itfc.load_en),
-    .reset_n(itfc.reset_n),
-    .operand_a(itfc.operand_a),
-    .operand_b(itfc.operand_b),
-    .opcode(itfc.opcode),
-    .write_pointer(itfc.write_pointer),
-    .read_pointer(itfc.read_pointer),
-    .instruction_word(itfc.instruction_word)
-   );
+  // connect interface to testbench
+  instr_register_test test (.io(io));
 
-  // instantiate design and connect ports
+  // connect interface to design using discrete ports
   instr_register dut (
     .clk(clk),
-    .load_en(itfc.load_en),
-    .reset_n(itfc.reset_n),
-    .operand_a(itfc.operand_a),
-    .operand_b(itfc.operand_b),
-    .opcode(itfc.opcode),
-    .write_pointer(itfc.write_pointer),
-    .read_pointer(itfc.read_pointer),
-    .instruction_word(itfc.instruction_word)
+    .load_en(io.load_en),
+    .reset_n(io.reset_n),
+    .operand_a(io.operand_a),
+    .operand_b(io.operand_b),
+    .opcode(io.opcode),
+    .write_pointer(io.write_pointer),
+    .read_pointer(io.read_pointer),
+    .instruction_word(io.instruction_word)
    );
 
   // clock oscillators
@@ -52,6 +46,9 @@ module top;
     test_clk <=0;
     // offset test_clk edges from clk to prevent races between
     // the testbench and the design
+    //
+    // THIS TEST CLOCK WILL BE REPLACED BY A CLOCKING BLOCK IN THE
+    // INTERFACE BETWEEN THE TESTBENCH AND THE DUT
     #4 forever begin
       #2ns test_clk = 1'b1;
       #8ns test_clk = 1'b0;

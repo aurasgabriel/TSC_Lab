@@ -1,0 +1,40 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/Facultate/TSC/Laborator/lab2/lab2/test
+T_opt
+!s110 1614788987
+V<=US9?OzoDmG`g`:3hoL;0
+04 4 4 work test fast 0
+=1-201a06f90643-603fb97b-121-1634
+o-quiet -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.7;67
+vtest
+!s110 1614788927
+!i10b 1
+!s100 UMPJ7EaNf`K3CO`bPi<`Q2
+I8QHnEeTakaek=;hzd<k3[0
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1614777644
+8E:/Facultate/TSC/Laborator/lab2/lab2/test/test.v
+FE:/Facultate/TSC/Laborator/lab2/lab2/test/test.v
+L0 7
+OL;L;10.7;67
+r1
+!s85 0
+31
+!s108 1614788927.000000
+!s107 E:/Facultate/TSC/Laborator/lab2/lab2/test/test.v|
+!s90 -reportprogress|300|-work|work|E:/Facultate/TSC/Laborator/lab2/lab2/test/test.v|
+!i113 0
+o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1

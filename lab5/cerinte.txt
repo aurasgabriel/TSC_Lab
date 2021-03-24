@@ -1,0 +1,36 @@
+class transaction
+
+operand a
+operand b
+opcode
+instruction
+
+randomize_transaction
+print_transaction
+
+
+
+se declara o clasa driver in care se instantiaza transaction si se va face un obiect de tip transaction "tr"
+interfata se declara cu cuvantul cheie "virtual"
+
+se efectueaza conexiunea dintre clasa si tb printr-un constructor "new tb_ifc (v ifc)"
+
+functie reset signals care primeste liniile de cod pana la reset <=1 din "instr_register_test"
+
+functie generate transaction unde se va pune un repeat de 3 ori unde se va apela tr.randomize_transaction
+tr.print_transaction
+
+v ifc.cb.operand_a <= tr.operand_a 
+v ifc.cb.operand_b <= tr.operand_b 
+v ifc.cb.opcode <= tr.opcode 
+
+driver.renew
+driver.reset_signals
+driver.generate_transaction
+
+clasa monitor va primi interfata prin new si va avea 2 functii:
+1. read_register - care va implica codul pe care il avem din for
+2. print_results
+
+Tema:
+se copiaza fisierele din lab4 intr-un fisier nou 5 + poza + notite si pus pe github

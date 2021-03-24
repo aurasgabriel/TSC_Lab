@@ -13,12 +13,22 @@ module top;
   logic test_clk;
   
 	// instantiate the testbench interface
-  tb_ifc itfc (.clk(clk));
+  tb_ifc itfc(.clk(clk));
 
 	// connect interface to testbench
-  instr_register_test test (.itfc(itfc));
 
   // instantiate testbench and connect ports
+  instr_register_test test (
+    .clk(test_clk),
+    .load_en(itfc.load_en),
+    .reset_n(itfc.reset_n),
+    .operand_a(itfc.operand_a),
+    .operand_b(itfc.operand_b),
+    .opcode(itfc.opcode),
+    .write_pointer(itfc.write_pointer),
+    .read_pointer(itfc.read_pointer),
+    .instruction_word(itfc.instruction_word)
+   );
 
   // instantiate design and connect ports
   instr_register dut (

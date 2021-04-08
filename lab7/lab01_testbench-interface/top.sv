@@ -23,14 +23,14 @@ module top;
   // instantiate design and connect ports
   instr_register dut (
     .clk(clk),
-    .load_en(itfc.cb.load_en),
-    .reset_n(itfc.cb.reset_n),
-    .operand_a(itfc.cb.operand_a),
-    .operand_b(itfc.cb.operand_b),
-    .opcode(itfc.cb.opcode),
-    .write_pointer(itfc.cb.write_pointer),
-    .read_pointer(itfc.cb.read_pointer),
-    .instruction_word(itfc.cb.instruction_word)
+    .load_en(itfc.load_en),
+    .reset_n(itfc.reset_n),
+    .operand_a(itfc.operand_a),
+    .operand_b(itfc.operand_b),
+    .opcode(itfc.opcode),
+    .write_pointer(itfc.write_pointer),
+    .read_pointer(itfc.read_pointer),
+    .instruction_word(itfc.instruction_word)
    );
 
   // clock oscillators

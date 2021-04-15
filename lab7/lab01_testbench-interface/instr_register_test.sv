@@ -19,11 +19,11 @@ module instr_register_test (tb_ifc itfc);
   
   constraint const_operand_a{
   operand_a >= -15;
-  operand_b <= 15;
+  operand_a <= 15;
   };
   
   constraint const_operand_b{
-  operand_a >= 0;
+  operand_b >= 0;
   operand_b <= 15;
   };
   
@@ -56,9 +56,51 @@ module instr_register_test (tb_ifc itfc);
 	Transaction tr;
 	virtual tb_ifc vifc;
 	
+	covergroup inputs_measure;
+	
+		cov_0: coverpoint vifc.cb.opcode {
+			bins val_zero={ZERO};
+			bins val_passa={PASSA};
+			bins val_passb={PASSB};
+			bins val_add={ADD};
+			bins val_sub={SUB};
+			bins val_mult={MULT};
+			bins val_div={DIV};
+			bins val_MOD={MOD};
+		}
+		
+		cov_1: coverpoint vifc.cb.operand_a {
+			bins val_opA[] = {[-15:15]};
+			bins val_max = {15};
+			bins val_min = {-15};
+		}
+		
+		cov_2: coverpoint vifc.cb.operand_b {
+			bins val_opB[] = {[0:15]};
+			bins val_max = {15};
+			bins val_min = {0};
+		}
+		
+		cov_3: coverpoint vifc.cb.operand_a {
+		    bins val_neg = {[-15:-1]};
+			bins val_poz = {[0:15]};
+		}
+		
+		cov_4: cross cov_0, cov_3 {
+		    ignore_bins poz_ignore = binsof (cov_3.val_poz);
+		}
+		
+		cov_5: cross cov_0, cov_1, cov_2 {
+			ignore_bins opA_ignore = binsof (cov_1.val_opA);
+			ignore_bins opB_ignore = binsof (cov_2.val_opB);
+		}
+	
+	endgroup;
+	
 	function new (virtual tb_ifc vifc);
 		tr = new(); //instantiere clasa
 		this.vifc = vifc;
+		inputs_measure = new();
 	endfunction
 	
 	task reset_signals();
@@ -83,10 +125,11 @@ module instr_register_test (tb_ifc itfc);
 	
 		$display("\nWriting values to register stack...");
 		@vifc.cb vifc.cb.load_en <= 1'b1;  // enable writing to register
-		repeat (3) begin
+		repeat (500) begin
 		@vifc.cb tr.randomize();
 			assign_signals();
 		@vifc.cb tr.print_transaction;
+		inputs_measure.sample();
 		end
 		@vifc.cb vifc.cb.load_en <= 1'b0;
 	

@@ -73,6 +73,7 @@ module instr_register_test (tb_ifc itfc);
 			bins val_opA[] = {[-15:15]};
 			bins val_max = {15};
 			bins val_min = {-15};
+			bins val_zero = {0};
 		}
 		
 		cov_2: coverpoint vifc.cb.operand_b {
@@ -93,6 +94,25 @@ module instr_register_test (tb_ifc itfc);
 		cov_5: cross cov_0, cov_1, cov_2 {
 			ignore_bins opA_ignore = binsof (cov_1.val_opA);
 			ignore_bins opB_ignore = binsof (cov_2.val_opB);
+		}
+		
+		cov_6: cross cov_1, cov_1, cov_2 {
+			ignore_bins opA_ignore1 = binsof (cov_1.val_opA);
+			ignore_bins opA_ignore2 = binsof (cov_1.val_max);
+			ignore_bins opB_ignore1 = binsof (cov_2.val_opB);
+			ignore_bins opB_ignore2 = binsof (cov_2.val_max);
+		}
+		
+		cov_7: cross cov_1, cov_3 {
+			ignore_bins opA_ignore = binsof (cov_3.val_neg);
+		}
+		
+		cov_8: cross cov_1, cov_2 {
+			ignore_bins opA_ignore1 = binsof (cov_1.val_opA);
+			ignore_bins opA_ignore2 = binsof (cov_1.val_max);
+			ignore_bins opA_ignore3 = binsof (cov_1.val_min);
+			ignore_bins opB_ignore1 = binsof (cov_2.val_opB);
+			ignore_bins opB_ignore2 = binsof (cov_2.val_max);
 		}
 	
 	endgroup;
